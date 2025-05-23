@@ -34,7 +34,7 @@ jobs:
             Triggered by: ${{ github.actor }}
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
@@ -42,7 +42,7 @@ jobs:
       - name: Run Tests
         run: npm test
 
-        # Thông báo khi build thành công
+      # Notification when build successful
       - name: Send Success Notification
         if: success()
         uses: appleboy/telegram-action@master
@@ -57,7 +57,7 @@ jobs:
             Commit: ${{ github.event.head_commit.message }}
             Build URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-      # Thông báo khi build thất bại
+      # Notification when build failed
       - name: Send Failure Notification
         if: failure()
         uses: appleboy/telegram-action@master
@@ -83,7 +83,7 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying to production..."
-          # Thêm lệnh deploy của bạn ở đây
+          # Add your deploy command here
 
       
       - name: Send Deployment Notification
