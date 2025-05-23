@@ -1,21 +1,46 @@
 
 import { Card, CardContent } from "@/components/ui/card"
+import Autoplay from "embla-carousel-autoplay"
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+    type CarouselApi,
 } from "@/components/ui/carousel"
+import { useEffect, useState } from "react"
 export default function CarouselServices() {
+    const [api, setApi] = useState<CarouselApi>()
+    const [current, setCurrent] = useState(0)
+    const [count, setCount] = useState(0)
+
+    useEffect(() => {
+        if (!api) {
+            return
+        }
+
+        setCount(api.scrollSnapList().length)
+        setCurrent(api.selectedScrollSnap() + 1)
+
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap() + 1)
+        })
+    }, [api])
     return (
-        <div className="w-full h-full justify-start items-start">   
+        <div className="w-full h-full justify-start items-start">
             <div className=" flex justify-between items-center w-full h-full">
                 <Carousel
                     opts={{
                         align: "start",
                     }}
                     className="w-full h-full "
+                    setApi={setApi}
+                    plugins={[
+                        Autoplay({
+                            delay: 3000,
+                        }),
+                    ]}
                 >
                     <CarouselContent className="w-full">
                         {Array.from({ length: 10 }).map((_, index) => (
@@ -31,8 +56,8 @@ export default function CarouselServices() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    {current > 1 ? <CarouselPrevious /> : ""}
+                    {current < count ? <CarouselNext /> : ""}
                 </Carousel>
             </div>
         </div>

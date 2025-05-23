@@ -10,8 +10,8 @@ export default function () {
                 <h2 className="text-6xl font-bold">A simple way to beauty and health</h2>
             </div>
             <div className="w-full h-2/3 flex justify-center items-center space-x-16">
-                <div className="w-1/4 h-full bg-blue-50 space-y-10 shadow-xl">
-                    <div className="w-full h-full justify-center items-center flex-col p-4 rounded-2xl grid grid-row-3 ">
+                <div className="w-1/4 h-full bg-blue-50 space-y-10 shadow-xl p-4 rounded-2xls">
+                    <div className="w-full h-full justify-center items-center flex-col  grid grid-row-3 ">
                         <div className="relative flex w-full h-full justify-center items-center">
                             <Search className="absolute left-4 " />
                             <Input disabled placeholder="Women's haircut" type="text" className="w-full h-1/2 px-12" />
@@ -21,7 +21,7 @@ export default function () {
                             <div className="flex justify-center items-start flex-col">
                                 <div className="flex justify-center items-center">
                                     {Array.from({ length: 5 }).map(() => (
-                                        <Star fill="yellow" color="yellow" />
+                                        <Star fill="orange" color="orange" />
                                     ))}
                                 </div>
                                 <span className="font-bold">Beauty studio</span>
@@ -44,7 +44,7 @@ export default function () {
                             <div className="flex justify-center items-start flex-col">
                                 <div className="flex justify-center items-center">
                                     {Array.from({ length: 5 }).map(() => (
-                                        <Star fill="yellow" color="yellow" />
+                                        <Star fill="orange" color="orange" />
                                     ))}
                                 </div>
                                 <span className="font-bold">Hair Factory</span>
