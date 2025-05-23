@@ -8,7 +8,9 @@ export default function IntroJoinBusiness() {
 				<h3 className="text-3xl text-teal-700">For individuals and salons</h3>
 				<h2 className="text-6xl">Own a personal business or a side-hustle?</h2>
 				<p>Experience all the advantages of a modern beauty platform. Organize your daily work and find new clients. And you can also manage your business in one program and receive and clear reports on your work. </p>
-				<Button className="bg-teal-950 h-12">Join now</Button>
+				<Button className="bg-teal-950 h-12" onClick={() => {
+					window.location.href = '/login';
+				}}>Join now</Button>
 			</div>
 		</div>
 	)
