@@ -4,7 +4,7 @@ import { FaApple, FaGooglePlay } from "react-icons/fa";
 
 export default function IntroduceMobile() {
     return (
-        <div className='w-dvw h-full flex justify-center items-center p-40'>
+        <div className='w-dvw h-full flex justify-center items-center p-40 md:p-20 lg:p-40 p-10'>
             <div className="w-full h-full flex justify-center items-start bg-teal-900 rounded-2xl">
                 <div className="flex justify-center items-start w-full h-full flex-col space-y-8 p-24">
                     <h3 className='text-3xl text-teal-600 font-bold'>LUMINOVA</h3>

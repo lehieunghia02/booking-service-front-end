@@ -33,7 +33,7 @@ export default function CarouselIndividuals() {
     }, [api])
     return (
         <div className="w-full h-full justify-start items-start">
-            <div className="text-3xl font-bold my-8">Popular individuals</div>
+            <div className="text-3xl font-bold lg:my-8 my-4">Popular individuals</div>
             <div className=" flex justify-between items-center w-full h-full">
                 <Carousel
                     opts={{
@@ -49,7 +49,7 @@ export default function CarouselIndividuals() {
                 >
                     <CarouselContent className="w-full">
                         {Array.from({ length: 10 }).map((_, index) => (
-                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4 w-full">
+                            <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/4 w-full">
                                 <div className="p-1">
                                     <Card className="p-0">
                                         <CardContent className="grid relative aspect-square items-center justify-center p-6">

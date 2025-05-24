@@ -66,12 +66,12 @@ const listDataDemo = [
 ]
 export default function Category() {
     return (
-        <div className="w-dvw h-full">
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 max-w-7xl mx-auto w-full m-40 p-20 pt-0">
+        <div className="w-dvw h-full md:p-20 lg:p-40 p-10">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 w-full ">
                 {listDataDemo.map(item => (
                     <div className="">
-                        <WobbleCard containerClassName={cn(item.backgroundColor,"col-span-1 min-h-[200px] aspect-square flex justify-start items-start flex-col ")}>
-                            <h2 className="max-w-80 text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-slate-950">
+                        <WobbleCard containerClassName={cn(item.backgroundColor,"col-span-1 lg:min-h-[100px] min-h-[100px]  aspect-square flex justify-center items-start flex-col ")}>
+                            <h2 className="max-w-1/2 text-left text-balance text-lg md:text-3xl lg:text-xl xl:text-3xl font-semibold tracking-[-0.015em] text-slate-950">
                                 {item.serviceName}
                             </h2>
                         </WobbleCard>
