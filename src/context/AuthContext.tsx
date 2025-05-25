@@ -14,10 +14,13 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [accessToken, setAccessToken] = useState<string | null>(null);
 
+
     const login = async (email: string, password: string) => {
-        const { accessToken, refreshToken } = await loginApi(email, password);
+        const {image, username, accessToken, refreshToken } = await loginApi(email, password);
         setAccessToken(accessToken);
         sessionStorage.setItem('refreshToken', refreshToken);
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('image', image);
     };
 
     const signup = async (email: string, password: string) => {
@@ -29,6 +32,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         setAccessToken(null);
         sessionStorage.removeItem('refreshToken');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('image');
     };
 
     const refresh = async () => {

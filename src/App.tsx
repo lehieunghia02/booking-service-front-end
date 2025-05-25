@@ -1,6 +1,5 @@
 
 import './App.css'
-import { AuthProvider } from './context/AuthContext';
 import Footer from './components/landingpage/Footer';
 import Header from './components/landingpage/Header';
 import Category from './pages/Landingpage/Category';
@@ -15,20 +14,18 @@ import Recommends from './pages/Landingpage/Recommends';
 function App() {
 	return (
 		<>
-			<AuthProvider>
-				<div className='w-dvw h-full overflow-x-hidden bg-sky-100 flex justify-center items-center flex-col lg:p-10'>
-					<Header />
-					<Herosection />
-					<Category />
-					<Recommends />
-					<HowItWork />
-					<PopularServices />
-					<IntroJoinBusiness />
-					<LandingReviews />
-					<IntroduceMobile />
-					<Footer />
-				</div>
-			</AuthProvider>
+			<div className='w-dvw h-full overflow-x-hidden bg-sky-100 flex justify-center items-center flex-col lg:p-10 overscroll-y-none overflow-hidden'>
+				<Header />
+				<Herosection />
+				<Category />
+				<Recommends />
+				<HowItWork />
+				<PopularServices />
+				<IntroJoinBusiness />
+				<LandingReviews />
+				<IntroduceMobile />
+				<Footer />
+			</div>
 		</>
 	)
 }

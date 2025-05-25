@@ -14,40 +14,47 @@ import { LoaderCircle } from 'lucide-react';
 import { useState } from "react"
 import { Checkbox } from "../ui/checkbox"
 import { NavbarButton } from "./resizable-navbar"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 
+import { useNavigate } from 'react-router-dom';
 
 
 export function LoginPopup() {
-    const { login } = useAuth();
+
+    const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false);
+    const { login, logout } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const [isLoginPopup, setIsLoginPopup] = useState(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     // const [error, setError] = useState('');
+    const sessionUsername = sessionStorage.getItem('username');
+    const sessionImage = sessionStorage.getItem('image');
 
 
     async function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
+            setIsLoading(true)
             await login(email, password);
-            alert('Đăng nhập thành công');
+            setOpen(false);
+            navigate('/dashboard');
+
         } catch {
             alert('Đăng nhập thất bại');
         }
-
-
-        setIsLoading(true)
-
-        setTimeout(() => {
+        finally {
             setIsLoading(false)
-        }, 3000)
+        }
     }
     async function handleSignupSubmit(e: React.FormEvent<HTMLFormElement>) {
 
         e.preventDefault();
         try {
-            const {refreshToken } = await signupApi(email, password);
+            const { refreshToken } = await signupApi(email, password);
             sessionStorage.setItem('refreshToken', refreshToken);
             await login(email, password);
         } catch (err: any) {
@@ -64,9 +71,22 @@ export function LoginPopup() {
 
     return (
         <>
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <NavbarButton variant="primary" type="submit" className="h-full lg:text-xl text-base">Login</NavbarButton>
+                    {sessionUsername ?
+                        <>
+                            <div className="w-fit h-fit bg-white px-3 flex justify-center items-center rounded-full " onClick={() => logout()}>
+                                <Avatar className="size-14 rounded-full grayscale bg-white p-1" >
+                                    <AvatarImage src={sessionImage} alt={sessionUsername} />
+                                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                </Avatar>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                    <span className="truncate font-medium text-lg">{sessionUsername}</span>
+                                </div>
+                            </div>
+                        </>
+                        : <NavbarButton variant="primary" type="submit" className="h-full lg:text-xl text-base">Login</NavbarButton>
+                    }
                 </DialogTrigger>
                 <DialogContent className="lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center">
                     <div className="flex flex-col w-full">
