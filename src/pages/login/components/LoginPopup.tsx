@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/AuthContext"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -9,29 +10,27 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { LoaderCircle } from 'lucide-react';
+import { useState } from "react"
 
-import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
 
 export function LoginPopup() {
-    const { login } = useAuth();
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const { login, user } = useAuth();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
             await login(username, password);
-            setError('');
-            alert('Login success');
+            alert(`Chào ${user?.username}! ID của bạn là ${user?.id}`);
         } catch {
-            setError('Login failed');
+            alert('Đăng nhập thất bại');
         }
 
-        alert(username)
+        
         setIsLoading(true)
 
         setTimeout(() => {
@@ -84,7 +83,7 @@ export function LoginPopup() {
                                                     Forgot your password?
                                                 </a>
                                             </div>
-                                            <Input id="password" placeholder="Password" type="password" required onChange={e => setPassword(e.target.value)}/>
+                                            <Input id="password" placeholder="Password" type="password" required onChange={e => setPassword(e.target.value)} />
                                         </div>
                                         <Button type="submit" className="w-full" disabled={isLoading}>
                                             {isLoading && (
@@ -98,7 +97,7 @@ export function LoginPopup() {
                                                 Sign up
                                             </a>
                                         </div>
-                                        {error && <p style={{ color: 'red' }}>{error}</p>}
+                                        
                                     </div>
                                 </form>
                                 {/* <div className="bg-primary/50 relative hidden md:block">

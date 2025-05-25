@@ -1,5 +1,5 @@
 
-import { LoginPopup } from '@/pages/Landingpage/components/LoginPopup'
+import { LoginPopup } from '@/pages/login/components/LoginPopup'
 import { Button } from '../ui/button'
 
 export default function Header() {
