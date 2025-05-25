@@ -72,7 +72,7 @@ export function LoginPopup() {
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger asChild>
+                <DialogTrigger asChild className="z-10">
                     {sessionUsername ?
                         <>
                             <div className="w-fit h-fit bg-white px-3 flex justify-center items-center rounded-full " onClick={() => logout()}>
@@ -88,10 +88,10 @@ export function LoginPopup() {
                         : <NavbarButton variant="primary" type="submit" className="h-full lg:text-xl text-base">Login</NavbarButton>
                     }
                 </DialogTrigger>
-                <DialogContent className="lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center">
+                <DialogContent className="z-60 lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center">
                     <div className="flex flex-col w-full">
                         {isLoginPopup ?
-                            <Card className="overflow-hidden p-0 border-0 shadow-none" hidden={!isLoginPopup}>
+                            <Card className="overflow-hidden p-0 border-0 shadow-none sm:py-14 md:w-full" hidden={!isLoginPopup}>
                                 <CardContent className="grid p-0">
                                     <form onSubmit={handleLoginSubmit} className="p-1 md:p-2">
                                         <div className="flex flex-col gap-6">
