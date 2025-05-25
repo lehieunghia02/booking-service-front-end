@@ -1,17 +1,63 @@
 
 import { LoginPopup } from '@/components/landingpage/LoginSignUpPopup'
 import { Button } from '../ui/button'
-
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "./resizable-navbar";
+import { useState } from "react";
 
 export default function Header() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     return (
         <>
-            <div className='w-dvw h-24 flex justify-between items-center px-24 fixed top-0 z-50'>
-                <h2 className='text-3xl font-bold'>LUMINOVA</h2>
-                <div className="flex justify-center items-center space-x-4 w-fit h-full ">
-                    <Button variant={'ghost'} className='hover:bg-transparent hover:text-black dark:hover:bg-none text-lg p-6 rounded-2xl'>For business</Button>
-                    <LoginPopup/>
-                </div>
+            <div className="relative w-full ">
+                <Navbar className='focus:outline-none'>
+                    {/* Desktop Navigation */}
+                    <NavBody>
+                        <NavbarLogo />
+                        <div className="flex items-center gap-4">
+                            <NavbarButton className='text-xl' variant="secondary">For Business</NavbarButton>
+                            <LoginPopup />
+                        </div>
+                    </NavBody>
+
+                    {/* Mobile Navigation */}
+                    <MobileNav>
+                        <MobileNavHeader>
+                            <NavbarLogo />
+                            <MobileNavToggle
+                                isOpen={isMobileMenuOpen}
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            />
+                        </MobileNavHeader>
+
+                        <MobileNavMenu
+                            isOpen={isMobileMenuOpen}
+                            onClose={() => setIsMobileMenuOpen(false)}
+                        >
+                            <div className="flex w-full flex-col gap-4">
+                                <LoginPopup />
+                                <NavbarButton
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    variant="primary"
+                                    className="w-full"
+                                >
+                                    For Business
+                                </NavbarButton>
+                            </div>
+                        </MobileNavMenu>
+                    </MobileNav>
+                </Navbar>
+
+                {/* Navbar */}
             </div>
         </>
     )

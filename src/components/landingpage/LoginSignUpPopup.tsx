@@ -13,6 +13,7 @@ import { signupApi } from "@/services/authApi"
 import { LoaderCircle } from 'lucide-react';
 import { useState } from "react"
 import { Checkbox } from "../ui/checkbox"
+import { NavbarButton } from "./resizable-navbar"
 
 
 
@@ -65,7 +66,7 @@ export function LoginPopup() {
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className='text-lg p-6 rounded-2xl bg-teal-900' type="submit">Log in</Button>
+                    <NavbarButton variant="primary" type="submit" className="h-full lg:text-xl text-base">Login</NavbarButton>
                 </DialogTrigger>
                 <DialogContent className="lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center">
                     <div className="flex flex-col w-full">
