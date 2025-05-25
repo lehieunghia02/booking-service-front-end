@@ -1,6 +1,6 @@
 
 import './App.css'
-import { AuthProvider } from './auth/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import Footer from './components/landingpage/Footer';
 import Header from './components/landingpage/Header';
 import Category from './pages/Landingpage/Category';
