@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/AuthContext"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -8,8 +9,36 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { LoaderCircle } from 'lucide-react';
+import { useState } from "react"
+
 
 export function LoginPopup() {
+
+    const { login, user } = useAuth();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+            await login(username, password);
+            alert(`Chào ${user?.username}! ID của bạn là ${user?.id}`);
+        } catch {
+            alert('Đăng nhập thất bại');
+        }
+
+        
+        setIsLoading(true)
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000)
+    }
+
+
     return (
         <>
             <Dialog>
@@ -20,7 +49,7 @@ export function LoginPopup() {
                     <div className="flex flex-col gap-6 w-full">
                         <Card className="overflow-hidden p-0 border-0 shadow-none">
                             <CardContent className="grid p-0">
-                                <form className="p-6 md:p-8">
+                                <form onSubmit={handleSubmit} className="p-6 md:p-8">
                                     <div className="flex flex-col gap-6">
                                         <div className="flex flex-col items-center text-center">
                                             <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -29,12 +58,19 @@ export function LoginPopup() {
                                             </p>
                                         </div>
                                         <div className="grid gap-3">
-                                            <Label htmlFor="email">Email</Label>
+                                            <Label className="sr-only" htmlFor="email">
+                                                Email
+                                            </Label>
                                             <Input
-                                                id="email"
-                                                type="email"
-                                                placeholder="m@example.com"
-                                                required
+                                                id="username"
+                                                placeholder="username"
+                                                type="tẽt"
+                                                autoCapitalize="none"
+                                                autoComplete="email"
+                                                autoCorrect="off"
+                                                disabled={isLoading}
+                                                value={username}
+                                                onChange={e => setUsername(e.target.value)}
                                             />
                                         </div>
                                         <div className="grid gap-3">
@@ -47,9 +83,12 @@ export function LoginPopup() {
                                                     Forgot your password?
                                                 </a>
                                             </div>
-                                            <Input id="password" type="password" required />
+                                            <Input id="password" placeholder="Password" type="password" required onChange={e => setPassword(e.target.value)} />
                                         </div>
-                                        <Button type="submit" className="w-full">
+                                        <Button type="submit" className="w-full" disabled={isLoading}>
+                                            {isLoading && (
+                                                <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                                            )}
                                             Login
                                         </Button>
                                         <div className="text-center text-sm">
@@ -58,6 +97,7 @@ export function LoginPopup() {
                                                 Sign up
                                             </a>
                                         </div>
+                                        
                                     </div>
                                 </form>
                                 {/* <div className="bg-primary/50 relative hidden md:block">
