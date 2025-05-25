@@ -14,7 +14,7 @@ import Recommends from './pages/Landingpage/Recommends';
 function App() {
 	return (
 		<>
-			<div className='w-dvw h-full overflow-x-hidden bg-sky-100 flex justify-center items-center flex-col lg:p-10 overscroll-y-none overflow-hidden'>
+			<div className='w-dvw h-full overflow-x-hidden flex justify-center items-center flex-col lg:p-10 overscroll-y-none overflow-hidden'>
 				<Header />
 				<Herosection />
 				<Category />

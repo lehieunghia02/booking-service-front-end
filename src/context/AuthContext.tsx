@@ -7,6 +7,7 @@ type AuthContextType = {
     login: (username: string, password: string) => Promise<void>;
     signup?: (username: string, password: string, email?: string) => Promise<void>;
     getInfoUserApi?: (accessToken: string) => Promise<any>;
+    getCategoryPopularApi?: (accessToken: string) => Promise<any>;
     logout: () => void;
 };
 
@@ -17,9 +18,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 
     const login = async (email: string, password: string) => {
-        const {image, username, accessToken, refreshToken } = await loginApi(email, password);
-        setAccessToken(accessToken);
-        sessionStorage.setItem('refreshToken', refreshToken);
+        const {status, message, data } = await loginApi(email, password);
+        setAccessToken(data.token);
+        sessionStorage.setItem('accessToken', data.token);
     };
 
     const signup = async (username: string, password: string, email: string) => {
@@ -40,9 +41,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return {status, message, data};
     }
 
-    const getCategoriesPopularApi = async (page: number, limit: number, skip: number) => {
-        const { categories } = await getCategoriesPopularApi(page, limit, skip);
-        return categories;
+    const getCategoriesPopularApi = async (page: number, limit: number, skip: number, accessToken: string) => {
+        const { status, message, data } = await getCategoriesPopularApi(page, limit, skip, accessToken);
+        return {status, message, data};
+    }
+
+    const getSalonsPopularApi = async (page: number, limit: number, skip: number, accessToken: string) => {
+        const { status, message, data } = await getCategoriesPopularApi(page, limit, skip, accessToken);
+        return {status, message, data};
     }
 
     const refresh = async () => {
