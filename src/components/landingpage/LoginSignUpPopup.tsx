@@ -50,8 +50,9 @@ export function LoginPopup() {
         }
         finally {
             setIsLoading(false)
-            const { status, message, data } = await getInfoUserApi(sessionStorage.getItem('refreshToken') || '');
+            const { status, message, data } = await getInfoUserApi(sessionStorage.getItem('accessToken'));
             setUser(data?.user)
+            sessionStorage.setItem('userInfo', JSON.stringify(data?.user));
         }
     }
     async function handleSignupSubmit(e: React.FormEvent<HTMLFormElement>) {

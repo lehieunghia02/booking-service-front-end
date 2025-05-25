@@ -1,14 +1,14 @@
 const API_URL = 'https://booking-service-api-u7eg.onrender.com/api';
 
-export const loginApi = async (username: string, password: string) => {
+export const loginApi = async (email: string, password: string) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
     });
-    console.log(res)
+    const data = await res.json();
     if (!res.ok) throw new Error('Login failed');
-    return res.json(); // { accessToken, refreshToken }
+    return data; // { accessToken, refreshToken }
 };
 
 export const signupApi = async (
@@ -21,19 +21,22 @@ export const signupApi = async (
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, email }),
     });
-
+    const data = await res.json();
     if (!res.ok) throw new Error('Sign up failed');
-    return res.json(); // { accessToken, refreshToken }
+    return data; // { accessToken, refreshToken }
 };
 
 export const getInfoUserApi = async (accessToken: string) => {
-    const res = await fetch(`${API_URL}/auth/user`, {
+    const res = await fetch(`${API_URL}/users/profile`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accessToken }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
     });
+    const data = await res.json();
     if (!res.ok) throw new Error('Get user info failed');
-    return res.json(); // { id, username, email, image }
+    return data; // { id, username, email, image }
 };
 export const refreshTokenApi = async (refreshToken: string) => {
     const res = await fetch(`${API_URL}/auth/refresh`, {
@@ -41,12 +44,12 @@ export const refreshTokenApi = async (refreshToken: string) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken }),
     });
-
+    const data = await res.json();
     if (!res.ok) throw new Error('Token refresh failed');
-    return res.json(); // { accessToken }
+    return data; // { accessToken }
 };
 
-export const getCategoriesPopularApi = async (page: number, limit: number, skip: number) => {
+export const getCategoriesPopularApi = async (page: number, limit: number, skip: number, accessToken: string) => {
     const queryParams = new URLSearchParams({
         page: String(page),
         limit: String(limit),
@@ -54,9 +57,12 @@ export const getCategoriesPopularApi = async (page: number, limit: number, skip:
     });
     const res = await fetch(`${API_URL}/categories/popular?${queryParams.toString()}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
     });
-
+    const data = await res.json();
     if (!res.ok) throw new Error('Get popular categories failed');
-    return res.json(); // { categories: Array<Category> }
+    return data; // { categories: Array<Category> }
 }

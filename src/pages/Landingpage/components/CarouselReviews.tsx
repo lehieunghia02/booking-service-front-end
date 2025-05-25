@@ -11,6 +11,24 @@ import {
 import Autoplay from "embla-carousel-autoplay"
 import { Star } from "lucide-react"
 import { useEffect, useState } from "react"
+import { motion } from "motion/react";
+
+const containerVariants = {
+    hidden: {},
+    show: {
+        transition: {
+            staggerChildren: 0.1, // hiệu ứng delay giữa các phần tử con
+        },
+    },
+};
+
+const childVariants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+
+
 export default function CarouselReviews() {
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
@@ -30,7 +48,12 @@ export default function CarouselReviews() {
     }, [api])
     return (
         <div className="w-full h-full justify-start items-start">
-            <div className=" flex justify-between items-center w-full h-full">
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, amount: 0.1 }} 
+                className=" flex justify-between items-center w-full h-full">
                 <Carousel
                     opts={{
                         align: "start",
@@ -46,14 +69,14 @@ export default function CarouselReviews() {
                     <CarouselContent className="">
                         {Array.from({ length: 10 }).map((_, index) => (
                             <CarouselItem key={index} className="md:basis-1/2 xl:basis-1/3 h-1/2">
-                                <div className="p-1">
+                                <motion.div variants={childVariants} className="p-1">
                                     <Card className="">
                                         <CardContent className="grid relative aspect-video items-center justify-around px-8 w-full h-fit">
                                             <div className="flex space-x-8 w-full h-fit">
                                                 <div className="h-full w-full flex flex-col justify-around items-start space-y-2 rounded-2xl">
                                                     <div className="flex justify-center items-center md:space-x-2 space-x-1">
                                                         {Array.from({ length: 5 }).map(() => (
-                                                            <Star fill="orange" color="orange" className="xl:size-6 lg:size-4 size-3 "/>
+                                                            <Star fill="orange" color="orange" className="xl:size-6 lg:size-4 size-3 " />
                                                         ))}
                                                     </div>
                                                     <h5 className="font-bold text-lg">Best service!</h5>
@@ -69,14 +92,14 @@ export default function CarouselReviews() {
                                             </div>
                                         </CardContent>
                                     </Card>
-                                </div>
+                                </motion.div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
                     {current > 1 ? <CarouselPrevious /> : ""}
                     {current < count ? <CarouselNext /> : ""}
                 </Carousel>
-            </div>
-        </div>
+            </motion.div>
+        </div >
     )
 }

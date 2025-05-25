@@ -10,11 +10,29 @@ import {
 import Autoplay from "embla-carousel-autoplay"
 import { Heart, Star } from "lucide-react"
 import { useEffect, useState } from "react"
+import { motion } from "motion/react";
+
+const containerVariants = {
+    hidden: {},
+    show: {
+        transition: {
+            staggerChildren: 0.1, // hiệu ứng delay giữa các phần tử con
+        },
+    },
+};
+
+const childVariants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+
+
 export default function CarouselBussiness() {
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
-    
+
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
@@ -31,13 +49,18 @@ export default function CarouselBussiness() {
     }, [api])
 
     function handleFavoriteClick() {
-        
+
         setIsFavorite(!isFavorite);
     }
     return (
         <div className="w-full h-full justify-start items-start">
             <div className="text-3xl font-bold my-4">Popular salons</div>
-            <div className=" flex justify-between items-center w-full h-full">
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, amount: 0.1 }}
+                className=" flex justify-between items-center w-full h-full">
                 <Carousel
                     opts={{
                         align: "start",
@@ -53,7 +76,7 @@ export default function CarouselBussiness() {
                     <CarouselContent className="w-full">
                         {Array.from({ length: 10 }).map((_, index) => (
                             <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 lg:w-full ">
-                                <div className="p-1">
+                                <motion.div variants={childVariants} className="p-1">
                                     <Card className="p-0">
                                         <CardContent className="grid relative aspect-square items-center justify-center p-6">
                                             <span className="absolute text-3xl font-semibold">{index + 1}</span>
@@ -64,7 +87,7 @@ export default function CarouselBussiness() {
                                                 <div className="">4.8</div>
                                             </div>
                                             <button
-                                                onClick={()=> handleFavoriteClick()}
+                                                onClick={() => handleFavoriteClick()}
                                                 className="group rounded-full hover:scale-110 transition-transform duration-200 absolute top-2 right-2 "
                                             >
                                                 <Heart
@@ -74,14 +97,14 @@ export default function CarouselBussiness() {
                                             </button>
                                         </CardContent>
                                     </Card>
-                                </div>
+                                </motion.div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
                     {current > 1 ? <CarouselPrevious /> : ""}
                     {current < count ? <CarouselNext /> : ""}
                 </Carousel>
-            </div>
+            </motion.div>
         </div>
     )
 }
