@@ -1,6 +1,5 @@
-import * as React from "react"
+import { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,6 +15,16 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+
+interface Province {
+    name: string;
+    code: number;
+    division_type: string;
+    codename: string;
+    phone_code: number;
+    districts: [];
+}
+
 
 const frameworks = [
     {
@@ -42,8 +51,21 @@ const frameworks = [
 
 
 export default function SearchSalon() {
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
+
+    const [provinces, setProvinces] = useState<Province[]>([]);
+    const [selected, setSelected] = useState("");
+
+    useEffect(() => {
+        fetch("https://provinces.open-api.vn/api/p/")
+            .then(res => res.json())
+            .then(data => {
+                const filteredData = data.filter((province: Province) => province.name && province.code);
+                setProvinces(filteredData)
+            });
+    }, []);
+
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="w-full h-full">
@@ -54,31 +76,31 @@ export default function SearchSalon() {
                     className="w-full justify-between"
                 >
                     {value
-                        ? frameworks.find((framework) => framework.value === value)?.label
-                        : "Select framework..."}
+                        ? provinces.find((province) => province.codename === value)?.name
+                        : "Select province..."}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-0">
                 <Command>
-                    <CommandInput placeholder="Search framework..." className="h-9" />
+                    <CommandInput placeholder="Search province..." className="h-9" />
                     <CommandList>
-                        <CommandEmpty>No framework found.</CommandEmpty>
+                        <CommandEmpty>No province found.</CommandEmpty>
                         <CommandGroup>
-                            {frameworks.map((framework) => (
+                            {provinces.map((province) => (
                                 <CommandItem
-                                    key={framework.value}
-                                    value={framework.value}
+                                    key={province.code}
+                                    value={province.codename}
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)
                                     }}
                                 >
-                                    {framework.label}
+                                    {province.name}
                                     <Check
                                         className={cn(
                                             "ml-auto",
-                                            value === framework.value ? "opacity-100" : "opacity-0"
+                                            value === province.codename ? "opacity-100" : "opacity-0"
                                         )}
                                     />
                                 </CommandItem>

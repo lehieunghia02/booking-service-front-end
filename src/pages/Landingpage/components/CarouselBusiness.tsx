@@ -16,7 +16,6 @@ export default function CarouselBussiness() {
     const [count, setCount] = useState(0)
     
     const [isFavorite, setIsFavorite] = useState(false);
-    const toggleFavorite = () => setIsFavorite(!isFavorite);
 
     useEffect(() => {
         if (!api) {
@@ -30,6 +29,11 @@ export default function CarouselBussiness() {
             setCurrent(api.selectedScrollSnap() + 1)
         })
     }, [api])
+
+    function handleFavoriteClick() {
+        
+        setIsFavorite(!isFavorite);
+    }
     return (
         <div className="w-full h-full justify-start items-start">
             <div className="text-3xl font-bold my-4">Popular salons</div>
@@ -60,7 +64,7 @@ export default function CarouselBussiness() {
                                                 <div className="">4.8</div>
                                             </div>
                                             <button
-                                                onClick={toggleFavorite}
+                                                onClick={()=> handleFavoriteClick()}
                                                 className="group rounded-full hover:scale-110 transition-transform duration-200 absolute top-2 right-2 "
                                             >
                                                 <Heart

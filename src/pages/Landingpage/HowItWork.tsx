@@ -4,9 +4,9 @@ import { Search, Star } from "lucide-react";
 
 export default function () {
     return (
-        <div className="w-dvw h-full flex justify-center items-center flex-col space-y-12 lg:space-y-24 md:p-20 lg:p-40 p-10">
+        <div className="w-dvw h-full flex justify-center items-center flex-col md:p-20 lg:p-40 p-10 lg:py-10">
             <div className="flex justify-center items-center flex-col space-y-10">
-                <h3 className="font-bold text-xl text-teal-900">How it work?</h3>
+                <h3 className="font-bold text-2xl text-teal-900">How it work?</h3>
                 <h2 className="text-4xl lg:text-6xl font-bold">A simple way to beauty and health</h2>
             </div>
             <div className=" w-full h-full grid lg:grid-cols-3 lg:grid-rows-1 grid-cols-1 grid-rows-3 justify-center items-center place-items-center gap-4">
