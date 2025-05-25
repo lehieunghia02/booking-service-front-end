@@ -6,6 +6,7 @@ type AuthContextType = {
     accessToken: string | null;
     login: (username: string, password: string) => Promise<void>;
     signup?: (username: string, password: string, email?: string) => Promise<void>;
+    getInfoUserApi?: (accessToken: string) => Promise<any>;
     logout: () => void;
 };
 
@@ -19,12 +20,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const {image, username, accessToken, refreshToken } = await loginApi(email, password);
         setAccessToken(accessToken);
         sessionStorage.setItem('refreshToken', refreshToken);
-        sessionStorage.setItem('username', username);
-        sessionStorage.setItem('image', image);
     };
 
-    const signup = async (email: string, password: string) => {
-        const { accessToken, refreshToken } = await signupApi(email, password);
+    const signup = async (username: string, password: string, email: string) => {
+        const { accessToken, refreshToken } = await signupApi(username, password, email);
         setAccessToken(accessToken);
         sessionStorage.setItem('refreshToken', refreshToken);
     };
@@ -32,9 +31,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         setAccessToken(null);
         sessionStorage.removeItem('refreshToken');
-        sessionStorage.removeItem('username');
-        sessionStorage.removeItem('image');
+
     };
+
+    const getInfoUserApi = async (accessToken: string) => {
+        const {status, message, data} = await getInfoUserApi(accessToken);
+        sessionStorage.setItem('userInfo', JSON.stringify(data.user));
+        return {status, message, data};
+    }
+
+    const getCategoriesPopularApi = async (page: number, limit: number, skip: number) => {
+        const { categories } = await getCategoriesPopularApi(page, limit, skip);
+        return categories;
+    }
 
     const refresh = async () => {
         const refreshToken = sessionStorage.getItem('refreshToken');

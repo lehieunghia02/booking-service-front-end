@@ -9,7 +9,7 @@ export default function () {
                 <h3 className="font-bold text-2xl text-teal-900">How it work?</h3>
                 <h2 className="text-4xl lg:text-6xl font-bold">A simple way to beauty and health</h2>
             </div>
-            <div className=" w-full h-full grid lg:grid-cols-3 lg:grid-rows-1 grid-cols-1 grid-rows-3 justify-center items-center place-items-center gap-4">
+            <div className=" w-full h-full grid lg:grid-cols-3 lg:grid-rows-1 grid-cols-1 grid-rows-3 justify-center items-center place-items-center lg:gap-2 xl:gap-10">
                 <div className="lg:w-full w-fit bg-blue-50 shadow-xl h-2/3 p-4 rounded-2xl space-y-10 ">
                     <div className="w-full h-full justify-center items-center flex-col grid grid-row-3 lg:space-y-10 space-y-4">
                         <div className="relative flex w-full h-full justify-center items-center">
@@ -68,7 +68,7 @@ export default function () {
                         <span className="xl:text-lg lg:text-lg text-base">Choose a individual or salon nearby for reviews and ratings</span>
                     </div>
                 </div>
-                <div className="lg:w-full md:w-2/3 h-2/3 space-y-10 bg-blue-50 shadow-xl p-4 rounded-2xl">
+                <div className="lg:w-full md:w-2/3 h-2/3 space-y-10 bg-blue-50 shadow-xl p-4 rounded-2xl mt-20">
                     <div className="w-full h-full justify-center items-start rounded-2xl flex space-y-4 flex-col">
                         <h5 className="font-bold lg:text-xl text-lg xl:text-3xl">Booking</h5>
                         <div className="flex justify-center items-center w-full h-full space-x-2">
@@ -118,7 +118,7 @@ export default function () {
                         <span className="xl:text-lg lg:text-lg text-base">At a convenient time and in just a few clicks</span>
                     </div>
                 </div>
-                <div className="lg:w-full md:w-2/3 h-2/3 space-y-10 bg-blue-50 shadow-xl p-4 rounded-2xl">
+                <div className="lg:w-full md:w-2/3 h-2/3 space-y-10 bg-blue-50 shadow-xl p-4 rounded-2xl mt-40">
                     <div className="w-full h-full justify-center items-center rounded-2xl">
                         <img src="/img/DummyImage.png" className="w-full h-full object-cover aspect-square rounded-2xl "></img>
                     </div>
