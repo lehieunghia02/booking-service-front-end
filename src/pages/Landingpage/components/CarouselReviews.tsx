@@ -12,6 +12,7 @@ import Autoplay from "embla-carousel-autoplay"
 import { Star } from "lucide-react"
 import { useEffect, useState } from "react"
 import { motion } from "motion/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const containerVariants = {
     hidden: {},
@@ -52,7 +53,7 @@ export default function CarouselReviews() {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.1 }} 
+                viewport={{ once: false, amount: 0.1 }}
                 className=" flex justify-between items-center w-full h-full">
                 <Carousel
                     opts={{
@@ -82,7 +83,10 @@ export default function CarouselReviews() {
                                                     <h5 className="font-bold text-lg">Best service!</h5>
                                                     <p className="text-slate-600 line-clamp-3 lg:text-base text-sm">This beauty services website is my go-to for all my beauty needs. The staff is friendly and professional.</p>
                                                     <div className="flex justify-center items-center space-x-4 ">
-                                                        <img src="/img/DummyImage.png" className="lg:size-12 size-8 object-cover aspect-square rounded-full"></img>
+                                                        <Avatar className="lg:size-12 size-8">
+                                                            <AvatarImage src="/img/avatarimg.png" alt="@shadcn" />
+                                                            <AvatarFallback>CN</AvatarFallback>
+                                                        </Avatar>
                                                         <div className="flex justify-center items-start flex-col">
                                                             <h6 className="font-bold lg:text-lg text-base">Lucy Rodriguez</h6>
                                                             <p className="text-base sm:text-sm">24 march</p>

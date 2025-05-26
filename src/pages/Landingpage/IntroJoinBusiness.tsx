@@ -24,7 +24,7 @@ export default function IntroJoinBusiness() {
 			whileInView="show"
 			viewport={{ once: false, amount: 0.1 }}
 			className='w-dvw h-full  flex justify-center items-center lg:space-x-24 space-x-8 md:p-20 lg:p-40 p-10 md:flex-row flex-col space-y-8 lg:py-10 py-0'>
-			<motion.img variants={childVariants} src="/img/DummyImage.png" className="xl:size-100 size-75 object-cover rounded-2xl"></motion.img>
+			<motion.img variants={childVariants} src="/img/adv_cosmetics.jpg" className="lg:size-150 size-75  object-cover rounded-2xl"></motion.img>
 			<motion.div variants={childVariants} className="w-full h-full space-y-8">
 				<motion.h3 variants={childVariants} className="xl:text-3xl text-xl text-teal-700">For individuals and salons</motion.h3>
 				<motion.h2 variants={childVariants} className="xl:text-6xl text-4xl font-bold">Own a personal business or a side-hustle?</motion.h2>

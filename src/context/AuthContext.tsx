@@ -64,6 +64,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return {status, message, result};
     }
 
+    const searchApi = async (query: string, accessToken: string) => {
+        const { status, message, result } = await searchApi(query, accessToken);
+        return {status, message, result};
+    }
+
     const refresh = async () => {
         const refreshToken = sessionStorage.getItem('refreshToken');
         if (refreshToken) {

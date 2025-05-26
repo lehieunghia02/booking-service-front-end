@@ -106,3 +106,16 @@ export const getServicePopular = async (accessToken: string) => {
     if (!res.ok) throw new Error('Get popular services failed');
     return data; // { services: Array<Service> }
 }
+
+export const searchApi = async (query: string, accessToken: string) => {
+    const res = await fetch(`${API_URL}/search?query=${query}}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error('Search failed');
+    return data; // { results: Array<SearchResult> }
+}
