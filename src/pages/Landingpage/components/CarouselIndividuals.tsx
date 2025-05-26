@@ -12,6 +12,7 @@ import Autoplay from "embla-carousel-autoplay"
 import { Heart, Star } from "lucide-react"
 import { useEffect, useState } from "react"
 import { motion } from "motion/react";
+import { getIndividualsPopular } from "@/services/authApi"
 
 const containerVariants = {
     hidden: {},
@@ -30,6 +31,9 @@ const childVariants = {
 
 
 export default function CarouselIndividuals() {
+
+    const [popularIndividuals, setPopularIndividuals] = useState<any[]>([])
+
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
@@ -38,6 +42,20 @@ export default function CarouselIndividuals() {
     const toggleFavorite = () => setIsFavorite(!isFavorite);
 
     useEffect(() => {
+
+        const fetchPopularIndividuals = async () => {
+            try {
+                const { status, message, data } = await getIndividualsPopular(sessionStorage.getItem('accessToken'));
+                setPopularIndividuals(data);
+            }
+            catch (error) {
+                console.error('Lỗi khi fetch categories:', error);
+            }
+        }
+        fetchPopularIndividuals();
+
+
+
         if (!api) {
             return
         }
@@ -49,6 +67,11 @@ export default function CarouselIndividuals() {
             setCurrent(api.selectedScrollSnap() + 1)
         })
     }, [api])
+
+    function handleFavoriteClick() {
+        setIsFavorite(!isFavorite);
+    }
+
     return (
         <div className="w-full h-full justify-start items-start">
             <div className="text-3xl font-bold lg:my-8 my-4">Popular individuals</div>
@@ -70,20 +93,19 @@ export default function CarouselIndividuals() {
                     ]}
                 >
                     <CarouselContent className="w-full">
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 w-full">
+                        {popularIndividuals.map((item, index) => (
+                            <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 lg:w-full ">
                                 <motion.div variants={childVariants} className="p-1">
                                     <Card className="p-0">
-                                        <CardContent className="grid relative aspect-square items-center justify-center p-6">
-                                            <span className="absolute text-3xl font-semibold">{index + 1}</span>
-                                            <img src="/img/DummyImage.png" className="absolute"></img>
+                                        <CardContent className="grid relative aspect-square items-center justify-center object-cover overflow-hidden px-0">
+                                            <img src={item.avatar_url} className=" aspect-square object-cover w-full h-full rounded-2xl"></img>
                                             <div className="rounded-full text-teal-900 bg-teal-100 absolute bottom-2 left-2 p-2 text-sm text-bold">Recommended</div>
                                             <div className="absolute bg-white rounded-full top-2 left-2 flex justify-center items-center space-x-2 px-2">
                                                 <Star fill="orange" color="orange" size="1em" />
-                                                <div className="">4.8</div>
+                                                <div className="">{item.avg_rating}</div>
                                             </div>
                                             <button
-                                                onClick={toggleFavorite}
+                                                onClick={() => handleFavoriteClick()}
                                                 className="group rounded-full hover:scale-110 transition-transform duration-200 absolute top-2 right-2 "
                                             >
                                                 <Heart
@@ -93,6 +115,14 @@ export default function CarouselIndividuals() {
                                             </button>
                                         </CardContent>
                                     </Card>
+                                    <div className="">
+                                        <h3 className="font-bold text-lg">{item.individual_name}</h3>
+                                        <div className="flex">
+                                            <p>{item.category_name}</p>
+                                            <p className="mx-2">●</p>
+                                            <p>{item.business_address}</p>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             </CarouselItem>
                         ))}

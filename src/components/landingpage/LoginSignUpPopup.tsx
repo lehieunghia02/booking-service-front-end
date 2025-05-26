@@ -79,7 +79,7 @@ export function LoginPopup() {
                 <DialogTrigger asChild className="">
                     {user ?
                         <>
-                            <div className="w-fit h-fit bg-white px-3 flex justify-center items-center rounded-full " onClick={() => logout()}>
+                            <div className="w-fit h-fit bg-white px-3 flex justify-center items-center rounded-full " onClick={() => {setUser(null);logout()}}>
                                 <Avatar className="size-14 rounded-full grayscale bg-white p-1" >
                                     <AvatarImage src='/img/avatarimg.png' alt={user.email} />
                                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -92,11 +92,10 @@ export function LoginPopup() {
                         : <NavbarButton variant="primary" type="submit" className="h-full lg:text-xl text-base">Login</NavbarButton>
                     }
                 </DialogTrigger>
-                <DialogContent className="z-60 lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center">
+                <DialogContent className="z-60 lg:w-fit w-full h-fit lg:m-4 m-0 border-2 flex justify-center items-center md:max-w-[96%]">
                     <div className="flex flex-col w-full">
-
                         {isLoginPopup ?
-                            <Card className="overflow-hidden p-0 border-0 shadow-none sm:py-14 md:w-full" hidden={!isLoginPopup}>
+                            <Card className="overflow-hidden p-0 border-0 shadow-none my-14 w-full" hidden={!isLoginPopup}>
                                 <DialogHeader>
                                     <DialogTitle>
                                         <div className="flex flex-col items-center text-center">

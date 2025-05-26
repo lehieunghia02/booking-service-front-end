@@ -8,6 +8,9 @@ type AuthContextType = {
     signup?: (username: string, password: string, email?: string) => Promise<void>;
     getInfoUserApi?: (accessToken: string) => Promise<any>;
     getCategoryPopularApi?: (accessToken: string) => Promise<any>;
+    getBusinessPopularApi?: (accessToken: string) => Promise<any>;
+    getIndividualsPopularApi?: (accessToken: string) => Promise<any>;
+    getServicePopularApi?: (accessToken: string) => Promise<any>;
     logout: () => void;
 };
 
@@ -46,9 +49,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return {status, message, data};
     }
 
-    const getSalonsPopularApi = async (page: number, limit: number, skip: number, accessToken: string) => {
-        const { status, message, data } = await getCategoriesPopularApi(page, limit, skip, accessToken);
+    const getBusinessPopularApi = async (accessToken: string) => {
+        const { status, message, data } = await getBusinessPopularApi(accessToken);
         return {status, message, data};
+    }
+
+    const getIndividualsPopularApi = async (accessToken: string) => {
+        const { status, message, data } = await getIndividualsPopularApi(accessToken);
+        return {status, message, data};
+    }
+
+    const getServicePopularApi = async (accessToken: string) => {
+        const { status, message, result } = await getServicePopularApi(accessToken);
+        return {status, message, result};
     }
 
     const refresh = async () => {
