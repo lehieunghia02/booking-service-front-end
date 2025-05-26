@@ -38,7 +38,7 @@ export default function () {
                             <Input disabled placeholder="Women's haircut" type="text" className="w-full h-1/2 px-12" />
                         </div>
                         <div className="flex justify-center items-center lg:space-x-4 space-x-2">
-                            <img src="/img/DummyImage.png" className="lg:size-20 size-16 object-cover aspect-square rounded-2xl"></img>
+                            <img src="/img/hair_factory.jpg" className="lg:size-20 size-16 object-cover aspect-square rounded-2xl"></img>
                             <div className="flex justify-center items-start flex-col">
                                 <div className="flex justify-center items-center">
                                     {Array.from({ length: 5 }).map(() => (
@@ -61,7 +61,7 @@ export default function () {
                             </div>
                         </div>
                         <div className="flex justify-center items-center lg:space-x-4 space-x-2">
-                            <img src="/img/DummyImage.png" className="lg:size-20 size-16 object-cover aspect-square rounded-2xl"></img>
+                            <img src="/img/nail_studio.jpg" className="lg:size-20 size-16 object-cover aspect-square rounded-2xl"></img>
                             <div className="flex justify-center items-start flex-col">
                                 <div className="flex justify-center items-center">
                                     {Array.from({ length: 5 }).map(() => (
@@ -94,7 +94,7 @@ export default function () {
                         <h5 className="font-bold lg:text-xl text-lg xl:text-3xl">Booking</h5>
                         <div className="flex justify-center items-center w-full h-full space-x-2">
                             <div className="flex justify-center items-center w-full h-full space-x-2">
-                                <img src="/img/DummyImage.png" className="xl:size-16 size-10 object-cover aspect-square rounded-2xl"></img>
+                                <img src="/img/hair_factory.jpg" className="xl:size-16 size-10 object-cover aspect-square rounded-2xl"></img>
                                 <div className="flex justify-center items-start flex-col w-full h-full">
                                     <div className="mx-auto w-full max-w-sm rounded-md ">
                                         <div className="flex animate-pulse space-x-4">
@@ -111,7 +111,7 @@ export default function () {
                                 </div>
                             </div>
                             <div className="flex justify-center items-center w-full h-full space-x-2">
-                                <img src="/img/DummyImage.png" className="size-10 xl:size-16 object-cover aspect-square rounded-2xl"></img>
+                                <img src="/img/nail_studio.jpg" className="size-10 xl:size-16 object-cover aspect-square rounded-2xl"></img>
                                 <div className="flex justify-center items-start flex-col w-full h-full">
                                     <div className="mx-auto w-full max-w-sm rounded-md ">
                                         <div className="flex animate-pulse space-x-4">
@@ -141,7 +141,7 @@ export default function () {
                 </motion.div>
                 <motion.div variants={childVariants} className="lg:w-full md:w-2/3 h-2/3 space-y-10 bg-blue-50 shadow-xl p-4 rounded-2xl mt-40">
                     <div className="w-full h-full justify-center items-center rounded-2xl">
-                        <img src="/img/DummyImage.png" className="w-full h-full object-cover aspect-square rounded-2xl "></img>
+                        <img src="/img/howitwork_image.jpg" className="w-full h-full object-cover aspect-square rounded-2xl "></img>
                     </div>
 
                     <div className="space-y-2 flex justify-start items-start flex-col">
