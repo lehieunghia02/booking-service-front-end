@@ -11,6 +11,7 @@ import Autoplay from "embla-carousel-autoplay"
 import { Heart, Star } from "lucide-react"
 import { useEffect, useState } from "react"
 import { motion } from "motion/react";
+import { getBusinessPopular } from "@/services/authApi"
 
 const containerVariants = {
     hidden: {},
@@ -29,6 +30,9 @@ const childVariants = {
 
 
 export default function CarouselBussiness() {
+
+    const [popularBusiness, setPopularBusiness] = useState<any[]>([])
+
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
@@ -36,10 +40,20 @@ export default function CarouselBussiness() {
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
+        const fetchPopularBusiness = async () => {
+            try {
+                const { status, message, data } = await getBusinessPopular(sessionStorage.getItem('accessToken'));
+                setPopularBusiness(data);
+            }
+            catch (error) {
+                console.error('Lỗi khi fetch categories:', error);
+            }
+        }
+        fetchPopularBusiness();
+
         if (!api) {
             return
         }
-
         setCount(api.scrollSnapList().length)
         setCurrent(api.selectedScrollSnap() + 1)
 
@@ -74,17 +88,16 @@ export default function CarouselBussiness() {
                     ]}
                 >
                     <CarouselContent className="w-full">
-                        {Array.from({ length: 10 }).map((_, index) => (
+                        {popularBusiness.map((item, index) => (
                             <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 lg:w-full ">
                                 <motion.div variants={childVariants} className="p-1">
                                     <Card className="p-0">
-                                        <CardContent className="grid relative aspect-square items-center justify-center p-6">
-                                            <span className="absolute text-3xl font-semibold">{index + 1}</span>
-                                            <img src="/img/DummyImage.png" className="absolute"></img>
+                                        <CardContent className="grid relative aspect-square items-center justify-center object-cover overflow-hidden px-0">
+                                            <img src={item.images} className=" aspect-square object-cover w-full h-full rounded-2xl"></img>
                                             <div className="rounded-full text-teal-900 bg-teal-100 absolute bottom-2 left-2 p-2 text-sm text-bold">Recommended</div>
                                             <div className="absolute bg-white rounded-full top-2 left-2 flex justify-center items-center space-x-2 px-2">
                                                 <Star fill="orange" color="orange" size="1em" />
-                                                <div className="">4.8</div>
+                                                <div className="">{item.avg_rating}</div>
                                             </div>
                                             <button
                                                 onClick={() => handleFavoriteClick()}
@@ -97,6 +110,14 @@ export default function CarouselBussiness() {
                                             </button>
                                         </CardContent>
                                     </Card>
+                                    <div className="">
+                                        <h3 className="font-bold text-lg">{item.name}</h3>
+                                        <div className="flex">
+                                            <p>{item.categories.name}</p>
+                                            <p className="mx-2">●</p>
+                                            <p>{item.address}</p>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             </CarouselItem>
                         ))}

@@ -28,7 +28,7 @@ export const signupApi = async (
 
 export const getInfoUserApi = async (accessToken: string) => {
     const res = await fetch(`${API_URL}/users/profile`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`
@@ -65,4 +65,44 @@ export const getCategoriesPopularApi = async (page: number, limit: number, skip:
     const data = await res.json();
     if (!res.ok) throw new Error('Get popular categories failed');
     return data; // { categories: Array<Category> }
+}
+
+export const getBusinessPopular = async (accessToken: string) => {
+
+    const res = await fetch(`${API_URL}/business/popular-salons`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error('Get popular businesses failed');
+    return data; // { businesses: Array<Business> }
+}
+
+export const getIndividualsPopular = async (accessToken: string) => {
+    const res = await fetch(`${API_URL}/individuals/popular`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error('Get popular individuals failed');
+    return data; // { individuals: Array<Individual> }
+}
+
+export const getServicePopular = async (accessToken: string) => {
+    const res = await fetch(`${API_URL}/services/popular`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error('Get popular services failed');
+    return data; // { services: Array<Service> }
 }

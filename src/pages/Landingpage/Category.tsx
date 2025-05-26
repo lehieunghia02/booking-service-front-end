@@ -90,7 +90,6 @@ export default function Category() {
             try {
                 const { status, message, data } = await getCategoriesPopularApi(1, 10, 1, sessionStorage.getItem('accessToken'));
                 setCategories(data);
-                console.log("Fetched categories:", data);
             } catch (error) {
                 console.error('Lỗi khi fetch categories:', error);
             }
@@ -105,14 +104,14 @@ export default function Category() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: false, amount: 0.1 }}
-                className="grid grid-cols-2 lg:grid-cols-5 lg:gap-4 w-fit gap-5">
+                className="grid grid-cols-2 lg:grid-cols-5 lg:gap-4 w-fit md:gap-2 gap-0">
                 {categories.map(item => (
                     <motion.div variants={childVariants} key={item.serviceValue} className="">
                         <WobbleCard containerClassName="col-span-1 lg:min-h-[100px] min-h-[100px] max-h-[250px] max-w-[250px] lg:max-w-full lg:max-h-full aspect-square flex justify-start items-start flex-col ">
                             <h2 className="absolute top-10 left-4 max-w-1/2 text-left text-balance text-lg md:text-3xl lg:text-base xl:text-3xl font-semibold tracking-[-0.015em] text-slate-950 p-0 ">
                                 {item.name}
                             </h2>
-                            <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-lg" />
+                            <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-lg " />
                         </WobbleCard>
                     </motion.div>
                 ))}

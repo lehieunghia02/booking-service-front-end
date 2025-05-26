@@ -46,11 +46,11 @@ export const WobbleCard = ({
         <motion.div
           style={{
             transform: isHovering
-              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
+              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.1, 1.1, 1.1)`
               : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
             transition: "transform 0.1s ease-out",
           }}
-          className={cn("h-full px-4 py-6 sm:px-2", className)}
+          className={cn("h-full md:px-4 md:py-6 p-1", className)}
         >
           {/* <Noise /> */}
           {children}

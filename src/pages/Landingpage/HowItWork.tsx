@@ -128,7 +128,7 @@ export default function () {
                                 </div>
                             </div>
                         </div>
-                        <div className=" flex justify-center items-start flex-col bg-teal-100 p-6 rounded-2xl w-full">
+                        <div className=" flex justify-center items-start flex-col bg-teal-100 p-6 rounded-2xl w-full xl:h-full">
                             <h6 className="font-bold xl:text-vb lg:text-base">Women's haircut</h6>
                             <p className="xl:text-lg lg:text-base">Mon, June 27, 11:30 - 13:30</p>
                         </div>

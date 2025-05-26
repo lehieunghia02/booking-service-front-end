@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import { useEffect, useState } from "react"
 import { motion } from "motion/react";
+import { getServicePopular } from "@/services/authApi";
 
 const containerVariants = {
     hidden: {},
@@ -29,11 +30,25 @@ const childVariants = {
 
 
 export default function CarouselServices() {
+
+    const [popularServices, setPopularServices] = useState<any[]>([])
+
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
 
     useEffect(() => {
+
+        const fetchPopularServices = async () => {
+            try {
+                const { status, message, result } = await getServicePopular(sessionStorage.getItem('accessToken'));
+                setPopularServices(result);
+            } catch (error) {
+                console.error('Error fetching popular services:', error);
+            }
+        }
+        fetchPopularServices();
+
         if (!api) {
             return
         }
@@ -66,13 +81,13 @@ export default function CarouselServices() {
                     ]}
                 >
                     <CarouselContent className="w-full">
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 w-full">
+                        {popularServices.map((item, index) => (
+                            <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 lg:w-full ">
                                 <motion.div variants={childVariants} className="p-1">
                                     <Card className="p-0">
-                                        <CardContent className="grid relative aspect-square items-center justify-center p-6">
-                                            <span className="absolute text-3xl font-semibold">{index + 1}</span>
-                                            <img src="/img/DummyImage.png" className="absolute"></img>
+                                        <CardContent className="relative grid aspect-square items-center justify-center px-0">
+                                            <span className="absolute top-4 left-6 xl:top-2 xl:left-4 text-xl xl:w-1/2 xl:text-3xl font-semibold z-2">{item.name}</span>
+                                            <img src={item.image} className="aspect-square object-cover w-full h-full rounded-2xl"></img>
                                         </CardContent>
                                     </Card>
                                 </motion.div>

@@ -42,11 +42,11 @@ export default function IntroduceMobile() {
                         </Button>
                     </motion.div>
                 </div>
-                <div className="w-full h-full  object-cover">
+                <div className="w-full h-full flex justify-center items-center object-cover lg:p-20 p-4">
                     <motion.img
                         initial={{ opacity: 0, y: 300 }}
                         whileInView={{ opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } }}
-                        src="/img/Phone.png" className='w-full h-full object-cover ' />
+                        src="/img/Phonewithapp.png" className='w-full h-full xl:w-1/2 xl:h-1/2 object-cover ' />
                 </div>
             </motion.div>
         </div>
